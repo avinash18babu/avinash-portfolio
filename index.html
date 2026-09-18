@@ -1,71 +1,473 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Avinash | Film Director Portfolio</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#040A07">
+<meta name="description" content="Avinash — B.Sc. Computer Science with AI portfolio. CONVERGENCE PROTOCOL.">
+<title>CONVERGENCE PROTOCOL — Avinash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========================= GLOBAL TOKENS / RESET ========================= */
+:root{
+ --void:#040A07;--moss:#0C1712;--plate:#142219;--verdigris:#3E6B54;
+ --toxic:#48F0A0;--toxic-hot:#B8FFDD;--core-cyan:#5CE1FF;--warn-amber:#D98E3A;
+ --text:#DCEFE4;--muted:#7C9186;--ease:cubic-bezier(.16,1,.3,1);--breach-level:0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--void);color:var(--text);font-family:"JetBrains Mono",monospace;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;background:rgba(72,240,160,.04);mix-blend-mode:multiply}
+body:after{content:"";position:fixed;inset:0;z-index:49;pointer-events:none;box-shadow:inset 0 0 18vw 7vw #000}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+button{color:inherit}
+:focus-visible{outline:1px solid var(--core-cyan);outline-offset:4px}
+::selection{background:var(--toxic);color:var(--void)}
+.container{width:min(1180px,calc(100% - 36px));margin:auto}
+.eyebrow{font-size:.68rem;letter-spacing:.2em;color:var(--toxic);text-transform:uppercase}
+h1,h2,h3{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.035em;margin:0}
+h2{font-size:clamp(2.4rem,7vw,5.7rem);line-height:.85}
+p{line-height:1.75;color:#b7ccc0}
+.noise{position:absolute;inset:0;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cut{clip-path:polygon(0 14px,14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+.panel{position:relative;background:var(--moss);border:1px solid var(--verdigris);overflow:hidden}
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:-2;background-image:linear-gradient(rgba(72,240,160,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(72,240,160,.03) 1px,transparent 1px);background-size:34px 34px;animation:gridShift 10s linear infinite}
+.scan{position:fixed;left:0;right:0;top:-4px;height:2px;background:var(--toxic);opacity:.05;z-index:40;pointer-events:none;animation:scan 10s linear infinite}
+@keyframes scan{to{transform:translateY(100vh)}}
+@keyframes gridShift{50%{background-position:2px 2px}}
+/* ========================= FIXED FRACTURE / CRACKED GLASS ========================= */
+#fracture{position:fixed;right:16px;top:8vh;width:28px;height:84vh;z-index:30;pointer-events:none}
+#fracture path{fill:none;stroke:var(--verdigris);stroke-width:2;stroke-dasharray:8 6;transition:stroke .8s var(--ease)}
+#fracture .fill{stroke-dasharray:1 1000;stroke:var(--toxic);transition:stroke-dasharray .2s linear}
+.crack{position:fixed;width:210px;height:210px;z-index:8;pointer-events:none;opacity:.12}
+.crack svg{width:100%;height:100%}
+.crack.one{left:2%;top:20%}.crack.two{right:3%;top:48%}.crack.three{left:12%;bottom:5%}
+.crack path{fill:none;stroke:var(--verdigris);stroke-width:1.3}
+/* ========================= BOOT SEQUENCE ========================= */
+#boot{position:fixed;inset:0;z-index:100;background:#000;display:grid;place-items:center;transition:opacity .55s var(--ease),visibility .55s}
+#boot.done{opacity:0;visibility:hidden;pointer-events:none}
+.boot-core{width:min(42vw,360px);aspect-ratio:1;position:relative}
+.boot-core:before{content:"";position:absolute;inset:18%;border:1px solid var(--core-cyan);transform:rotate(30deg);box-shadow:0 0 60px rgba(92,225,255,.45)}
+.boot-core:after{content:"";position:absolute;inset:30%;border:1px solid var(--toxic);transform:rotate(60deg);opacity:.7}
+.boot-text{position:fixed;bottom:28px;left:28px;color:var(--toxic);font-size:11px;line-height:1.8;white-space:pre}
+.boot-spark{position:absolute;width:4px;height:4px;background:var(--toxic);box-shadow:0 0 18px var(--toxic);left:20%;top:38%;animation:spark .75s ease-in-out 3}
+@keyframes spark{50%{transform:scale(8);opacity:1}to{opacity:0;transform:translate(45vw,20vh) scale(.2)}}
+/* ========================= REACTOR / CORE ========================= */
+#reactor-wrap{width:410px;max-width:42vw;aspect-ratio:1;position:relative}
+#reactor{width:100%;height:100%;filter:drop-shadow(0 0 14px rgba(92,225,255,.25));animation:breathe 4.2s ease-in-out infinite}
+#reactor .housing{transform-origin:50% 50%;animation:spin 48s linear infinite}
+#reactor .coils{transform-origin:50% 50%;animation:spin 30s linear reverse infinite}
+#reactor .core{transform-origin:50% 50%;animation:corePulse 4.2s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.07)}}
+@keyframes corePulse{50%{filter:drop-shadow(0 0 22px rgba(92,225,255,.9))}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.conduit{stroke:var(--core-cyan);stroke-width:3;stroke-linecap:round;opacity:.82;transition:stroke 1.5s var(--ease),opacity 1.5s var(--ease)}
+.conduit.hot{stroke:var(--toxic);opacity:.95}
+body.sealed .conduit{stroke:var(--core-cyan)!important}
+#reactor-wrap.near #reactor{animation-duration:3.23s;filter:drop-shadow(0 0 28px rgba(92,225,255,.72))}
+#siegePulse{position:absolute;inset:0;pointer-events:none}
+/* ========================= NAVIGATION / HEADER ========================= */
+.topbar{position:fixed;top:0;left:0;right:0;height:66px;z-index:25;display:flex;align-items:center;border-bottom:1px solid rgba(62,107,84,.45);background:rgba(4,10,7,.8);backdrop-filter:blur(8px)}
+.topbar .container{display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:"Barlow Condensed";font-weight:700;letter-spacing:.12em;font-size:1.1rem;color:var(--toxic)}
+nav{display:flex;gap:20px}
+nav a{font-size:.62rem;color:var(--muted);letter-spacing:.12em}
+nav a:hover{color:var(--toxic)}
+/* ========================= HERO / RELAY CORE ========================= */
+section{min-height:100vh;padding:130px 0 100px;position:relative}
+.hero{display:grid;grid-template-columns:1fr 440px;align-items:center;gap:40px}
+.hero h1{font-size:clamp(4rem,10vw,9.5rem);color:var(--toxic);text-shadow:1px 0 var(--core-cyan);line-height:.78;margin:14px 0 28px}
+.hero-copy{max-width:650px}
+.hero-copy .sub{font-size:clamp(.9rem,1.7vw,1.2rem);color:var(--text);max-width:580px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{border:1px solid var(--toxic);background:transparent;padding:14px 18px;letter-spacing:.12em;font-size:.68rem;cursor:pointer;clip-path:polygon(0 8px,8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);transition:transform .4s var(--ease),background .4s var(--ease),color .4s var(--ease)}
+.btn:hover{transform:translateY(-4px);background:var(--toxic);color:var(--void)}
+.btn.secondary{border-color:var(--verdigris);color:var(--muted)}
+.hud-corner{position:absolute;width:80px;height:80px;border-left:1px solid var(--verdigris);border-top:1px solid var(--verdigris);left:0;top:92px;opacity:.6}
+/* ========================= ABOUT / STORM SIGNATURE ========================= */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:36px;gap:20px}
+.section-head h2{color:var(--toxic)}
+.lightning{position:absolute;inset:0;opacity:.15;pointer-events:none}
+.lightning path{fill:none;stroke:var(--toxic);stroke-width:1}
+.storm-card{padding:38px}
+.storm-card:hover{box-shadow:inset 0 0 0 1px var(--toxic)}
+.diag{display:grid;gap:18px;align-content:center}
+.readout{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid rgba(62,107,84,.55);padding:12px 0;font-size:.72rem}
+.readout b{color:var(--toxic);font-weight:500}
+.arc{position:absolute;inset:0;border:1px solid transparent;opacity:0;transition:opacity .4s}
+.storm-card:hover .arc{opacity:1;box-shadow:0 0 22px rgba(72,240,160,.25)}
+/* ========================= SKILLS / AEGIS SIGNATURE ========================= */
+.skill-zone{position:relative}
+.rings{position:absolute;width:min(650px,80vw);aspect-ratio:1;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.13}
+.rings circle{fill:none;stroke:var(--toxic);stroke-width:1}
+.skills-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:800px;margin:auto}
+.skill{min-height:135px;padding:24px;background:rgba(12,23,18,.9);border:1px solid var(--verdigris);display:flex;flex-direction:column;justify-content:space-between;transform:translateY(24px);opacity:0;transition:transform .7s var(--ease),opacity .7s var(--ease),border-color .3s}
+.skill.revealed{transform:none;opacity:1}
+.skill:hover{border-color:var(--toxic);transform:translateY(-5px)}
+.skill .charge{height:3px;background:var(--verdigris);position:relative;overflow:hidden}
+.skill.revealed .charge:after{content:"";position:absolute;inset:0;background:var(--toxic);transform:translateX(-100%);animation:charge 1.1s var(--ease) forwards}
+@keyframes charge{to{transform:none}}
+/* ========================= PROJECTS / GAUNTLET SIGNATURE ========================= */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.project{min-height:330px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .4s var(--ease),border-color .4s}
+.project:hover{transform:translateY(-8px);border-color:var(--toxic)}
+.project:after{content:"";position:absolute;inset:15%;border:1px solid var(--toxic);opacity:0;transform:rotate(30deg);transition:opacity .4s;pointer-events:none}
+.project:hover:after{opacity:.2}
+.archive{font-size:.58rem;color:var(--muted);letter-spacing:.1em}
+.project h3{font-size:2.2rem;color:var(--text);margin:14px 0}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.55rem;padding:6px 8px;border:1px solid var(--verdigris);color:var(--muted)}
+.project-link{font-size:.62rem;color:var(--toxic);letter-spacing:.12em}
+
+/* ========================= RESUME / ARCHIVE SIGNATURE ========================= */
+.resume-shell{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:stretch}
+.resume-card{padding:34px;min-height:480px}
+.resume-top{display:flex;justify-content:space-between;align-items:flex-start;gap:25px;border-bottom:1px solid var(--verdigris);padding-bottom:25px}
+.resume-top h3{font-size:clamp(2rem,4vw,3.5rem);color:var(--toxic);margin:10px 0 4px}
+.resume-title{font-size:.72rem!important;letter-spacing:.08em;margin:0!important;color:var(--text)!important}
+.resume-id{width:86px;height:86px;border:1px solid var(--toxic);display:grid;place-items:center;position:relative;transform:rotate(30deg);flex:none}
+.resume-id span{font-family:"Barlow Condensed";font-size:2rem;color:var(--core-cyan);transform:rotate(-30deg)}
+.resume-id small{position:absolute;right:-4px;bottom:-24px;color:var(--muted);font-size:.5rem;line-height:1.4;transform:rotate(-30deg)}
+.resume-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--verdigris);margin:28px 0}
+.resume-facts div{background:var(--moss);padding:17px}
+.resume-facts span{display:block;color:var(--muted);font-size:.53rem;letter-spacing:.12em;margin-bottom:7px}
+.resume-facts b{font-size:.68rem;color:var(--text);font-weight:500}
+.resume-lines{display:grid;gap:0}
+.resume-lines p{margin:0;padding:14px 0;border-bottom:1px solid rgba(62,107,84,.45);font-size:.7rem}
+.resume-lines span{color:var(--toxic);margin-right:16px}
+.resume-actions{display:flex;flex-direction:column;gap:18px}
+.resume-terminal{padding:28px;flex:1}
+.resume-terminal h3{font-size:2rem;margin:15px 0}
+.resume-terminal p{font-size:.7rem}
+.resume-terminal .btn{display:block;width:100%;text-align:center;margin-top:10px}
+.resume-orbit{min-height:170px;border:1px solid var(--verdigris);position:relative;overflow:hidden;display:grid;place-items:center}
+.resume-orbit:before,.resume-orbit:after{content:"";position:absolute;border:1px solid var(--toxic);border-radius:50%;width:110px;height:110px;transform:rotate(35deg)}
+.resume-orbit:after{width:155px;height:70px;transform:rotate(-25deg)}
+.resume-orbit span{position:absolute;width:5px;height:5px;background:var(--toxic);box-shadow:0 0 15px var(--toxic)}
+.resume-orbit span:nth-child(1){transform:translate(70px,-38px)}
+.resume-orbit span:nth-child(2){transform:translate(-62px,34px)}
+.resume-orbit span:nth-child(3){transform:translate(8px,70px)}
+.resume-orbit i{font-family:"Barlow Condensed";font-style:normal;font-size:2.5rem;color:var(--core-cyan);z-index:1}
+
+/* ========================= EDUCATION / PRECISION SIGNATURE ========================= */
+.timeline{max-width:820px;margin:0 auto;position:relative;padding:20px 0}
+.timeline:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(var(--verdigris),var(--toxic),var(--verdigris));transform:translateX(-50%)}
+.node{width:46%;padding:25px;position:relative;margin:45px 0;border:1px solid var(--verdigris);background:var(--moss);opacity:0;transform:translateY(25px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.node.revealed{opacity:1;transform:none}
+.node:nth-child(even){margin-left:54%}
+.node:after{content:"";position:absolute;top:50%;width:55px;height:1px;background:var(--toxic);opacity:.5}
+.node:nth-child(odd):after{right:-55px}.node:nth-child(even):after{left:-55px}
+.node .date{font-size:.62rem;color:var(--toxic);letter-spacing:.12em}
+/* ========================= CONTACT / SANCTUM SIGNATURE ========================= */
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center}
+.sigil{width:min(360px,75vw);aspect-ratio:1;margin:auto;opacity:.55;animation:spin 60s linear infinite}
+.sigil circle,.sigil line{fill:none;stroke:var(--toxic);stroke-width:1}
+.form{padding:34px}
+.field{position:relative;margin:24px 0}
+.field input,.field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--verdigris);color:var(--text);padding:12px 0;outline:0;resize:vertical}
+.field textarea{min-height:120px}
+.field label{position:absolute;left:0;top:12px;font-size:.65rem;color:var(--muted);pointer-events:none;transition:transform .3s var(--ease),color .3s}
+.field input:focus,.field textarea:focus{border-color:var(--core-cyan);box-shadow:0 3px 0 -2px var(--core-cyan)}
+.field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label{transform:translateY(-20px);color:var(--core-cyan)}
+.status{min-height:24px;color:var(--toxic);font-size:.65rem;letter-spacing:.08em;margin-top:15px}
+/* ========================= FOOTER ========================= */
+footer{padding:35px 0;border-top:1px solid var(--verdigris);font-size:.6rem;color:var(--muted);display:flex;justify-content:space-between}
+/* ========================= REVEAL / BREACH / GLITCH ========================= */
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.revealed{opacity:1;transform:none}
+.breach h2,.breach .hero h1{animation:glitch 7s steps(1,end) infinite}
+@keyframes glitch{0%,94%,100%{text-shadow:1px 0 var(--core-cyan)}95%{text-shadow:2px 0 var(--toxic),-2px 0 var(--warn-amber);transform:translateX(1px)}96%{text-shadow:-1px 0 var(--toxic),1px 0 var(--warn-amber);transform:none}}
+/* ========================= RESPONSIVE / REDUCED MOTION ========================= */
+@media(max-width:850px){
+ nav{display:none}.hero{grid-template-columns:1fr;text-align:center}.hero-copy{margin:auto}.hero .cta-row{justify-content:center}
+ #reactor-wrap{max-width:180px;width:180px;order:-1;margin:0 auto}.about-grid,.contact-grid{grid-template-columns:1fr}
+ .skills-grid{grid-template-columns:repeat(2,1fr)}.projects-grid{grid-template-columns:1fr}
+ .timeline:before{left:10px}.node,.node:nth-child(even){width:calc(100% - 35px);margin:35px 0 35px 35px}.node:after,.node:nth-child(odd):after,.node:nth-child(even):after{left:-25px;right:auto;width:25px}
+ .crack{display:none}#fracture{right:3px}.hero h1{font-size:clamp(3.5rem,17vw,6rem)}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}.grid-bg,.scan,#reactor,.housing,.coils,.core,.sigil,.breach h2,.breach .hero h1{animation:none!important}
+ .reveal,.skill,.node{transition:opacity .4s}.boot-spark{animation:none}
+}
+@media(max-width:520px){.resume-actions{grid-template-columns:1fr}.resume-card{padding:24px}.resume-facts{grid-template-columns:1fr}.resume-orbit{min-height:150px}}.container{width:min(100% - 24px,1180px)}section{padding-top:105px}.skills-grid{gap:6px}.skill{min-height:115px;padding:17px}.storm-card,.form{padding:24px}footer{display:block;line-height:2.2}}
+</style>
 </head>
-
 <body>
+<!-- ========================= BOOT SEQUENCE ========================= -->
+<div id="boot" role="dialog" aria-label="Interface boot sequence">
+  <div class="boot-core" aria-hidden="true"><i class="boot-spark"></i></div>
+  <div class="boot-text" id="bootText"></div>
+</div>
 
-<header>
-    <h1>AVINASH</h1>
-    <p>Filmmaker | Director | Storyteller 🎬</p>
-</header>
+<!-- ========================= FIXED HUD / CRACKS ========================= -->
+<div class="grid-bg" aria-hidden="true"></div><div class="scan" aria-hidden="true"></div>
+<svg id="fracture" viewBox="0 0 28 800" aria-hidden="true">
+ <path d="M14 0 10 70 18 130 7 190 17 250 5 310 19 365 9 430 20 490 8 555 16 620 6 680 18 740 12 800"/>
+ <path class="fill" d="M14 0 10 70 18 130 7 190 17 250 5 310 19 365 9 430 20 490 8 555 16 620 6 680 18 740 12 800"/>
+</svg>
+<div class="crack one" aria-hidden="true"><svg viewBox="0 0 210 210"><path d="M105 0 96 46 73 62 91 78 51 91 67 112 28 135 61 139 42 174 82 157 92 205M96 46 120 58 113 89 143 111 124 138 151 169M67 112 105 121 92 151 61 139"/></svg></div>
+<div class="crack two" aria-hidden="true"><svg viewBox="0 0 210 210"><path d="M210 38 165 58 143 41 131 73 103 62 81 96 45 85 0 113M143 41 176 22 190 0M103 62 115 20 98 0M81 96 72 139 25 151 8 193"/></svg></div>
+<div class="crack three" aria-hidden="true"><svg viewBox="0 0 210 210"><path d="M24 210 51 171 42 138 80 123 72 91 111 74 105 35 148 0M51 171 88 182 105 156 139 171 166 135M72 91 41 62 0 65M111 74 151 92 192 78"/></svg></div>
 
-<section class="hero">
-    <h2>“Cinema is a matter of what's in the frame and what's out.”</h2>
-    <p>- Inspired by Martin Scorsese</p>
+<!-- ========================= HEADER / NAVIGATION ========================= -->
+<header class="topbar"><div class="container">
+ <a class="brand" href="#relay" aria-label="Convergence Protocol home">C//P</a>
+ <nav aria-label="Primary navigation">
+  <a href="#about">ABOUT</a><a href="#skills">SKILLS</a><a href="#resume">RESUME</a><a href="#projects">PROJECTS</a><a href="#education">EDUCATION</a><a href="#contact">CONTACT</a>
+ </nav>
+</div></header>
+
+<main>
+<!-- ========================= HERO: RELAY CORE ========================= -->
+<section id="relay" class="hero">
+ <div class="hud-corner" aria-hidden="true"></div>
+ <div class="container hero-copy reveal">
+  <div class="eyebrow">RELAY CORE // CONVERGENCE PROTOCOL</div>
+  <h1>AVINASH</h1>
+  <p class="sub">B.Sc. Computer Science with AI — S.A. College of Arts &amp; Science, Chennai</p>
+  <p>Six signatures enter. One operator keeps the system coherent. This is a salvaged interface for code, artificial intelligence, and creative systems.</p>
+  <div class="cta-row"><a class="btn" href="#projects">VIEW PROJECTS</a><a class="btn secondary" href="#contact">OPEN UPLINK</a></div>
+ </div>
+ <div id="reactor-wrap" aria-label="Central arc reactor" role="img">
+  <svg id="reactor" viewBox="0 0 420 420" aria-hidden="true">
+   <defs>
+    <radialGradient id="cyanCore"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#B8FFDD"/><stop offset=".7" stop-color="#5CE1FF"/><stop offset="1" stop-color="#5CE1FF" stop-opacity="0"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+   </defs>
+   <g class="housing" fill="none" stroke="#3E6B54" stroke-width="8">
+    <circle cx="210" cy="210" r="158" stroke-dasharray="25 7"/>
+    <path d="M210 52v22M210 346v22M52 210h22M346 210h22" stroke="#040A07"/>
+    <path d="M105 91l18 17M297 312l18 17" stroke="#040A07" stroke-width="13"/>
+   </g>
+   <g class="coils" fill="none" stroke="#48F0A0" stroke-opacity=".35" stroke-width="3">
+    <path d="M210 86l30 55h-60zM296 136l-3 63-52-31zM296 284l-55-31 52-32zM210 334l-30-55h60zM124 284l3-63 52 31zM124 136l55 31-52 32z"/>
+   </g>
+   <g fill="none">
+    <path class="conduit hot" data-conduit="0" d="M210 210L210 26"/>
+    <path class="conduit" data-conduit="1" d="M210 210L369 118"/>
+    <path class="conduit" data-conduit="2" d="M210 210L369 302"/>
+    <path class="conduit" data-conduit="3" d="M210 210L210 394"/>
+    <path class="conduit" data-conduit="4" d="M210 210L51 302"/>
+    <path class="conduit" data-conduit="5" d="M210 210L51 118"/>
+   </g>
+   <circle class="core" cx="210" cy="210" r="65" fill="url(#cyanCore)" filter="url(#glow)"/>
+   <path d="M210 153L259 239H161z" fill="#5CE1FF" filter="url(#glow)"/>
+   <path d="M210 166L247 231H173z" fill="#fff"/>
+  </svg>
+  <div id="siegePulse" aria-hidden="true"></div>
+ </div>
 </section>
 
-<section class="about">
-    <h2>About Me</h2>
-    <p>
-        I am Avinash, an aspiring film director passionate about storytelling and cinematic visuals.
-        I have directed award-winning short films and actively create engaging content on Instagram.
-        My focus is on emotional storytelling, visual composition, and impactful direction.
-    </p>
+<!-- ========================= ABOUT: STORM SIGNATURE ========================= -->
+<section id="about">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">02 // STORM SIGNATURE</div><h2>ABOUT</h2></div><span class="eyebrow">SIGNATURE: THUNDER</span></div>
+  <div class="about-grid">
+   <article class="panel cut storm-card reveal">
+    <div class="noise"></div><div class="arc"></div>
+    <p class="eyebrow">OPERATOR PROFILE</p>
+    <p>I'm Avinash, a Computer Science with AI graduate focused on building practical digital experiences. My work sits where web development, AI, and creative storytelling meet.</p>
+    <p>I build interfaces, student-focused systems, and AI-assisted projects while continuing to sharpen Python, JavaScript, SQL, and machine-learning foundations.</p>
+    <p>Outside code, filmmaking and short-film direction are part of the same creative system: observe, structure, build, refine.</p>
+   </article>
+   <aside class="panel cut storm-card diag reveal" aria-label="Live diagnostics">
+    <div class="noise"></div>
+    <div class="readout"><span>UPTIME</span><b id="uptime">ONLINE</b></div>
+    <div class="readout"><span>FOCUS</span><b>AI + WEB</b></div>
+    <div class="readout"><span>CAFFEINE.LVL</span><b>STABLE // PROBABLY</b></div>
+    <div class="readout"><span>STATUS</span><b>CONTAINED</b></div>
+   </aside>
+  </div>
+ </div>
+ <svg class="lightning" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M80 150l92 18-61 42 103 24-88 37 129 22-84 53 118 15M1100 90l-105 44 71 24-120 51 98 20-140 62 83 23-128 55"/>
+  <path d="M410 0l-35 102 54 28-82 87 61 22-76 121 91-29-37 113"/>
+ </svg>
 </section>
 
-<section class="films">
-    <h2>🎬 My Films</h2>
+<!-- ========================= SKILLS: AEGIS SIGNATURE ========================= -->
+<section id="skills">
+ <div class="container skill-zone">
+  <div class="section-head reveal"><div><div class="eyebrow">03 // AEGIS SIGNATURE</div><h2>SKILLS</h2></div><span class="eyebrow">SIGNATURE: CONCENTRIC FIELD</span></div>
+  <svg class="rings" viewBox="0 0 600 600" aria-hidden="true">
+   <circle cx="300" cy="300" r="275"/><circle cx="300" cy="300" r="235"/><circle cx="300" cy="300" r="185"/><circle cx="300" cy="300" r="130"/>
+   <path d="M300 25v550M25 300h550M105 105l390 390M495 105 105 495"/>
+  </svg>
+  <div class="skills-grid">
+   <div class="skill"><strong>PYTHON</strong><span>AI / AUTOMATION</span><div class="charge"></div></div>
+   <div class="skill"><strong>HTML + CSS</strong><span>INTERFACE SYSTEMS</span><div class="charge"></div></div>
+   <div class="skill"><strong>JAVASCRIPT</strong><span>INTERACTION</span><div class="charge"></div></div>
+   <div class="skill"><strong>SQL / MYSQL</strong><span>DATA LAYER</span><div class="charge"></div></div>
+   <div class="skill"><strong>JAVA</strong><span>PROGRAMMING</span><div class="charge"></div></div>
+   <div class="skill"><strong>GIT + GITHUB</strong><span>VERSION CONTROL</span><div class="charge"></div></div>
+  </div>
+ </div>
+</section>
 
-    <div class="card">
-        <h3>Untold Story of Appa</h3>
-        <p>🏆 Saveetha College Award Winner</p>
-        <a href="https://www.instagram.com/reel/DA6ABUHv5EF/" target="_blank">▶ Watch Film</a>
+<!-- ========================= PROJECTS: GAUNTLET SIGNATURE ========================= -->
+<section id="projects">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">04 // GAUNTLET SIGNATURE</div><h2>PROJECTS</h2></div><span class="eyebrow">SIGNATURE: POWER CLUSTER</span></div>
+  <div class="projects-grid">
+   <article class="panel cut project reveal"><div class="noise"></div><div><div class="archive">ARCHIVE-01 / STATUS: RECOVERED</div><h3>SMART STUDENT PORTAL</h3><p>Student result workflow with marks, charts, PDF generation, QR verification, and structured result data.</p></div><div><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span><span class="tag">AI/OCR</span></div><br><a class="project-link" href="https://bit.ly/sacasgpt" target="_blank" rel="noopener">OPEN DEMO ↗</a></div></article>
+   <article class="panel cut project reveal"><div class="noise"></div><div><div class="archive">ARCHIVE-02 / STATUS: RECOVERED</div><h3>COLLEGE GPT</h3><p>An AI-assisted college information and syllabus companion built around Python, Streamlit, structured data, and document output.</p></div><div><div class="tags"><span class="tag">PYTHON</span><span class="tag">STREAMLIT</span><span class="tag">OPENAI API</span></div><br><a class="project-link" href="https://github.com/avinash18babu/college-gpt" target="_blank" rel="noopener">VIEW REPOSITORY ↗</a></div></article>
+   <article class="panel cut project reveal"><div class="noise"></div><div><div class="archive">ARCHIVE-03 / STATUS: RECOVERED</div><h3>CREATIVE SYSTEMS</h3><p>Short-film projects combining direction, visual storytelling, editing, and technology-driven experimentation.</p></div><div><div class="tags"><span class="tag">DIRECTION</span><span class="tag">STORYTELLING</span><span class="tag">CREATIVE TECH</span></div></div></article>
+  </div>
+ </div>
+</section>
+
+
+<!-- ========================= RESUME: ARCHIVE SIGNATURE ========================= -->
+<section id="resume">
+ <div class="container">
+  <div class="section-head reveal">
+   <div><div class="eyebrow">05 // ARCHIVE SIGNATURE</div><h2>RESUME</h2></div>
+   <span class="eyebrow">SIGNATURE: OPERATOR DOSSIER</span>
+  </div>
+  <div class="resume-shell">
+   <article class="panel cut resume-card reveal">
+    <div class="noise"></div>
+    <div class="resume-top">
+     <div>
+      <div class="archive">DOSSIER-AVINASH // RECOVERED</div>
+      <h3>OPERATOR PROFILE</h3>
+      <p class="resume-title">B.Sc. COMPUTER SCIENCE WITH AI</p>
+     </div>
+     <div class="resume-id" aria-hidden="true"><span>AV</span><small>AUTH<br>06</small></div>
     </div>
-
-    <div class="card">
-        <h3>Love Frame</h3>
-        <p>🏆 Loyola (DMI) College Award Winner</p>
-        <a href="https://www.instagram.com/reel/DA6AcWTv0JC/" target="_blank">▶ Watch Film</a>
+    <div class="resume-facts">
+     <div><span>DOMAIN</span><b>AI + WEB</b></div>
+     <div><span>EDUCATION</span><b>2024 — 2026</b></div>
+     <div><span>BASE</span><b>CHENNAI</b></div>
+     <div><span>MODE</span><b>BUILD / LEARN / CREATE</b></div>
     </div>
-
+    <div class="resume-lines">
+     <p><span>01</span> Build practical interfaces and student-focused digital systems.</p>
+     <p><span>02</span> Apply programming and AI concepts to real projects.</p>
+     <p><span>03</span> Combine technical execution with visual storytelling.</p>
+    </div>
+   </article>
+   <aside class="resume-actions reveal">
+    <div class="resume-terminal panel cut">
+     <div class="noise"></div>
+     <div class="eyebrow">DOCUMENT CONTROL</div>
+     <h3>READY FOR UPLINK</h3>
+     <p>Put your PDF beside this HTML file and name it <strong>resume.pdf</strong>. The controls below will then open or download it.</p>
+     <a class="btn" href="resume.pdf" target="_blank" rel="noopener">OPEN RESUME ↗</a>
+     <a class="btn secondary" href="resume.pdf" download>DOWNLOAD PDF ↓</a>
+    </div>
+    <div class="resume-orbit" aria-hidden="true"><span></span><span></span><span></span><i>CV</i></div>
+   </aside>
+  </div>
+ </div>
 </section>
 
-<section class="social">
-    <h2>📱 More Works</h2>
-    <p>I create cinematic reels, fun content, and storytelling videos.</p>
-    <a href="https://www.instagram.com/vipbozs" target="_blank">Visit My Instagram (@vipbozs)</a>
+<!-- ========================= EDUCATION: PRECISION SIGNATURE ========================= -->
+<section id="education">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">06 // PRECISION SIGNATURE</div><h2>EDUCATION</h2></div><span class="eyebrow">SIGNATURE: CONVERGENCE</span></div>
+  <div class="timeline">
+   <article class="node"><div class="date">2024 — 2026</div><h3>B.Sc. COMPUTER SCIENCE WITH AI</h3><p>S.A. College of Arts &amp; Science, Chennai. Affiliated to the University of Madras.</p></article>
+   <article class="node"><div class="date">FOCUS</div><h3>COMPUTING + AI</h3><p>Programming, web technologies, databases, artificial intelligence, NLP, computer vision, and practical project development.</p></article>
+   <article class="node"><div class="date">CREATIVE TRACK</div><h3>FILMMAKING</h3><p>Short-film direction and storytelling alongside technical work. Recognised at college short-film competitions.</p></article>
+  </div>
+ </div>
 </section>
 
-<section class="achievements">
-    <h2>🏆 Achievements</h2>
-    <ul>
-        <li>1st Prize – Loyola College Short Film Competition</li>
-        <li>2nd Prize – Saveetha College Short Film Competition</li>
-    </ul>
+<!-- ========================= CONTACT: SANCTUM SIGNATURE ========================= -->
+<section id="contact">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">07 // SANCTUM SIGNATURE</div><h2>CONTACT</h2></div><span class="eyebrow">COMMS: READY</span></div>
+  <div class="contact-grid">
+   <div class="reveal">
+    <svg class="sigil" viewBox="0 0 360 360" aria-hidden="true">
+     <circle cx="180" cy="180" r="150"/><circle cx="180" cy="180" r="118"/><circle cx="180" cy="180" r="70"/>
+     <circle cx="180" cy="180" r="35"/>
+     <g id="ticks"></g>
+     <path d="M180 30v55M180 275v55M30 180h55M275 180h55"/>
+    </svg>
+   </div>
+   <form class="panel cut form reveal" id="contactForm">
+    <div class="noise"></div>
+    <p class="eyebrow">SECURE COMMS TERMINAL</p>
+    <div class="field"><input id="name" name="name" placeholder=" " required autocomplete="name"><label for="name">IDENTITY</label></div>
+    <div class="field"><input id="email" name="email" type="email" placeholder=" " required autocomplete="email"><label for="email">RETURN CHANNEL</label></div>
+    <div class="field"><textarea id="message" name="message" placeholder=" " required></textarea><label for="message">TRANSMISSION</label></div>
+    <button class="btn" type="submit">TRANSMIT</button>
+    <div class="status" id="status" aria-live="polite"></div>
+   </form>
+  </div>
+ </div>
 </section>
+</main>
 
-<section class="contact">
-    <h2>📩 Contact</h2>
-    <p>Email: avinash15072005@gmail.com</p>
-</section>
+<!-- ========================= FOOTER ========================= -->
+<footer class="container"><span>CONVERGENCE PROTOCOL // AVINASH</span><span>ORIGINAL GEOMETRY // SIGNAL CONTAINED</span></footer>
 
-<footer>
-    <p>© 2026 Avinash | Film Portfolio</p>
-</footer>
-
+<script>
+/* ========================= CORE SCRIPT / BOOT ========================= */
+(() => {
+ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+ const boot=$("#boot"), bootText=$("#bootText"), reduced=matchMedia("(prefers-reduced-motion: reduce)").matches, mobile=innerWidth<=850;
+ const lines=["> RELAY CORE: STABILISING","> SIGNATURES DETECTED: 6 / CONTAINED: 6","> TIMELINE ANCHOR: HOLDING","> OPERATOR: AVINASH — AUTHENTICATED"];
+ function finishBoot(){boot.classList.add("done");sessionStorage.setItem("cpBoot","1")}
+ if(sessionStorage.getItem("cpBoot")||reduced){finishBoot()}else{
+   let i=0, pos=0;
+   const type=()=>{if(i>=lines.length){setTimeout(finishBoot,350);return} if(pos<=lines[i].length){bootText.textContent+=lines[i][pos++];setTimeout(type,24)}else{bootText.textContent+="\n";i++;pos=0;setTimeout(type,100)}};
+   setTimeout(type,mobile?550:950); boot.addEventListener("click",finishBoot);
+   setTimeout(finishBoot,mobile?1200:2200);
+ }
+ /* ========================= REACTOR PROXIMITY ========================= */
+ const rw=$("#reactor-wrap");
+ addEventListener("pointermove",e=>{if(matchMedia("(pointer:fine)").matches){const r=rw.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;rw.classList.toggle("near",Math.hypot(e.clientX-x,e.clientY-y)<220)}},{passive:true});
+ /* ========================= SECTION CONDUIT STABILITY ========================= */
+ const sections=$$("main section"), conduits=$$(".conduit");
+ const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+   if(e.isIntersecting){
+    e.target.classList.add("in-view");
+    const idx=sections.indexOf(e.target); if(idx>0) conduits[(idx-1)%6]?.classList.remove("hot");
+   } else {
+    const idx=sections.indexOf(e.target); if(idx>0) conduits[(idx-1)%6]?.classList.add("hot");
+   }
+ }),{threshold:.22});
+ sections.forEach(s=>io.observe(s));
+ /* ========================= REVEAL SYSTEM ========================= */
+ const rev=new IntersectionObserver(entries=>entries.forEach(e=>{
+   if(e.isIntersecting){e.target.classList.add("revealed");rev.unobserve(e.target)}
+ }),{threshold:.12});
+ $$(".reveal,.skill,.node").forEach((el,i)=>{el.style.transitionDelay=(i%9*70)+"ms";rev.observe(el)});
+ /* ========================= SCROLL CONTAINMENT ========================= */
+ let ticking=false;
+ addEventListener("scroll",()=>{
+   if(ticking)return;ticking=true;requestAnimationFrame(()=>{
+    const max=document.documentElement.scrollHeight-innerHeight, p=max?scrollY/max:0;
+    document.documentElement.style.setProperty("--breach-level",Math.max(0,(p-.55)/.45));
+    $(".fill").style.strokeDasharray=(p*1000)+" 1000";
+    document.body.classList.toggle("breach",p>.55);
+    if(p>.97){document.body.classList.add("sealed");$(".fill").style.stroke="#5CE1FF";conduits.forEach(c=>c.classList.remove("hot"))}
+    ticking=false;
+   });
+ },{passive:true});
+ /* ========================= STORM FLASH ========================= */
+ if(!reduced&&!mobile){const lightning=$(".lightning");setInterval(()=>{lightning.animate([{opacity:.15},{opacity:.45},{opacity:.15}],{duration:260,easing:"ease-out"})},7000+Math.random()*3000)}
+ /* ========================= SIGIL TICKS ========================= */
+ const ticks=$("#ticks");for(let i=0;i<24;i++){const a=i*Math.PI/12,x1=180+Math.cos(a)*128,y1=180+Math.sin(a)*128,x2=180+Math.cos(a)*145,y2=180+Math.sin(a)*145;ticks.insertAdjacentHTML("beforeend",`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`)}
+ /* ========================= CONTACT TRANSMISSION ========================= */
+ $("#contactForm").addEventListener("submit",e=>{
+   e.preventDefault();const st=$("#status"),states=["ENCRYPTING","ROUTING","SENT"];
+   let i=0;st.textContent=states[i];const timer=setInterval(()=>{i++;if(i<states.length)st.textContent=states[i];else{clearInterval(timer);st.textContent="SENT // TERMINAL COMPLETE — CONNECT YOUR MAIL HANDLER TO DELIVER.";e.target.reset()}},700);
+ });
+ /* ========================= RETICLE CURSOR ========================= */
+ if(matchMedia("(pointer:fine)").matches&&!reduced){
+   const r=document.createElement("div");r.setAttribute("aria-hidden","true");Object.assign(r.style,{position:"fixed",width:"18px",height:"18px",border:"1px solid #5CE1FF",pointerEvents:"none",zIndex:200,transform:"translate(-50%,-50%)",transition:"width .25s,height .25s,border-color .25s",mixBlendMode:"screen"});document.body.append(r);
+   addEventListener("pointermove",e=>{r.style.left=e.clientX+"px";r.style.top=e.clientY+"px"},{passive:true});
+   $$("a,button,input,textarea").forEach(el=>{el.addEventListener("mouseenter",()=>{r.style.width="30px";r.style.height="30px";r.style.borderColor="#48F0A0"});el.addEventListener("mouseleave",()=>{r.style.width="18px";r.style.height="18px";r.style.borderColor="#5CE1FF"})});
+ }
+})();
+</script>
 </body>
 </html>
